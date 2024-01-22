@@ -14,4 +14,7 @@ export class BooksTestRepository implements BooksRepository {
     if (targetIndex < 0) return;
     this.books[targetIndex] = book;
   }
+  async findById(id: string): Promise<Book | null> {
+    return this.books.find((book) => book.id === id) ?? null;
+  }
 }
