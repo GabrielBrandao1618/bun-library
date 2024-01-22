@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import { AuthorsRepository } from "../repository/authors-repository";
 import { Author } from "../entity/author";
 
-export class AddAuthor {
+export class CreateAuthor {
   constructor(private readonly authorsRepository: AuthorsRepository) {}
   async execute(name: string) {
     const id = randomUUID();

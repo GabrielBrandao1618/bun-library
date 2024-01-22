@@ -4,7 +4,7 @@ import { AuthorsRepository } from "../repository/authors-repository";
 import { BooksRepository } from "../repository/books-repository";
 import { Book } from "../entity/book";
 
-export class AddBook {
+export class CreateBook {
   constructor(
     private readonly booksRepository: BooksRepository,
     private readonly authorsRepository: AuthorsRepository
