@@ -3,6 +3,9 @@ import { UsersRepository } from "../../app/repository/users-repository";
 
 export class UsersTestRepository implements UsersRepository {
   users: User[] = [];
+  async findById(id: string): Promise<User | null> {
+    return this.users.find((user) => user.id === id) ?? null;
+  }
   async findByEmail(email: string): Promise<User | null> {
     return this.users.find((user) => user.email === email) ?? null;
   }
