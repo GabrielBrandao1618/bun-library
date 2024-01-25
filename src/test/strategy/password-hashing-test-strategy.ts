@@ -1,14 +1,14 @@
-import { hash, genSalt, compare } from "bcrypt";
-
 import { PasswordHashingStrategy } from "../../app/strategy/password-hashing-strategy";
 
 export class PasswordHashingTestStrategy implements PasswordHashingStrategy {
   async hash(password: string): Promise<string> {
-    const salt = await genSalt(10);
-    const hashed = await hash(password, salt);
+    const hashed = await Bun.password.hash(password, {
+      cost: 4,
+      algorithm: "bcrypt",
+    });
     return hashed;
   }
   async compare(password: string, hashed: string) {
-    return await compare(password, hashed);
+    return await Bun.password.verify(password, hashed);
   }
 }
