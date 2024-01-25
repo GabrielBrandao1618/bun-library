@@ -1,15 +1,15 @@
-# library
+# How to run
 
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
+First, start all the services with docker compose:
 
 ```bash
-bun run index.ts
+docker compose up
 ```
 
-This project was created using `bun init` in bun v1.0.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Then, create a `.env` file and set the environment variables just like the `.env.example` file
+
+Now you can start the app:
+
+```bash
+bun start
+```
