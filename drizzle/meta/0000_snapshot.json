@@ -1,12 +1,12 @@
 {
-  "id": "37cdd6ae-f298-4c5d-bb21-859174ae744e",
+  "id": "76c0ce3a-7533-4d0a-a40a-9fd9a7b26b80",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
     "authors": {
       "name": "authors",
-      "schema": "",
+      "schema": "library",
       "columns": {
         "id": {
           "name": "id",
@@ -18,7 +18,7 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -28,7 +28,7 @@
     },
     "books": {
       "name": "books",
-      "schema": "",
+      "schema": "library",
       "columns": {
         "id": {
           "name": "id",
@@ -40,13 +40,13 @@
           "name": "title",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "num_pages": {
           "name": "num_pages",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "author_id": {
           "name": "author_id",
@@ -61,6 +61,7 @@
           "name": "books_author_id_authors_id_fk",
           "tableFrom": "books",
           "tableTo": "authors",
+          "schemaTo": "library",
           "columnsFrom": [
             "author_id"
           ],
@@ -76,7 +77,7 @@
     },
     "physical_books": {
       "name": "physical_books",
-      "schema": "",
+      "schema": "library",
       "columns": {
         "id": {
           "name": "id",
@@ -103,6 +104,7 @@
           "name": "physical_books_borrowed_by_users_id_fk",
           "tableFrom": "physical_books",
           "tableTo": "users",
+          "schemaTo": "library",
           "columnsFrom": [
             "borrowed_by"
           ],
@@ -116,6 +118,7 @@
           "name": "physical_books_book_id_books_id_fk",
           "tableFrom": "physical_books",
           "tableTo": "books",
+          "schemaTo": "library",
           "columnsFrom": [
             "book_id"
           ],
@@ -131,7 +134,7 @@
     },
     "users": {
       "name": "users",
-      "schema": "",
+      "schema": "library",
       "columns": {
         "id": {
           "name": "id",
@@ -143,29 +146,39 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "email": {
           "name": "email",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "password_hash": {
           "name": "password_hash",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
     }
   },
   "enums": {},
-  "schemas": {},
+  "schemas": {
+    "library": "library"
+  },
   "_meta": {
     "columns": {},
     "schemas": {},

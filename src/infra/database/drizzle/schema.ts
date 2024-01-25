@@ -1,27 +1,29 @@
-import { pgTable, text, integer } from "drizzle-orm/pg-core";
+import { text, integer, pgSchema } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
+export const schema = pgSchema("library");
+
+export const users = schema.table("users", {
   id: text("id").primaryKey(),
-  name: text("name"),
-  email: text("email"),
-  passwordHash: text("password_hash"),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
 });
 
-export const authors = pgTable("authors", {
+export const authors = schema.table("authors", {
   id: text("id").primaryKey(),
-  name: text("name"),
+  name: text("name").notNull(),
 });
 
-export const books = pgTable("books", {
+export const books = schema.table("books", {
   id: text("id").primaryKey(),
-  title: text("title"),
-  numPages: integer("num_pages"),
+  title: text("title").notNull(),
+  numPages: integer("num_pages").notNull(),
   authorId: text("author_id")
     .references(() => authors.id)
     .notNull(),
 });
 
-export const physicalBooks = pgTable("physical_books", {
+export const physicalBooks = schema.table("physical_books", {
   id: text("id").primaryKey(),
   borrowedBy: text("borrowed_by").references(() => users.id),
   bookId: text("book_id")
