@@ -1,4 +1,4 @@
-import Elysia, { type Context } from "elysia";
+import Elysia from "elysia";
 import { UsersDrizzleRepository } from "../database/drizzle/repository/users-drizzle-repository";
 import { BooksDrizzleRepository } from "../database/drizzle/repository/books-drizzle-repository";
 import { PhysicalBooksDrizzleRepository } from "../database/drizzle/repository/physical-books-drizzle-repository";
