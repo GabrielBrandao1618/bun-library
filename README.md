@@ -13,3 +13,5 @@ Now you can start the app:
 ```bash
 bun start
 ```
+
+You can access API documentation in `/swagger` route
