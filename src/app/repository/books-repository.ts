@@ -5,4 +5,5 @@ export interface BooksRepository {
   findAll(): Promise<Book[]>;
   findById(id: string): Promise<Book | null>;
   save(book: Book): Promise<void>;
+  findByAuthor(authorId: string): Promise<Book[]>;
 }

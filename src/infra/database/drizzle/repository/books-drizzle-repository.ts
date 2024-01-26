@@ -27,4 +27,9 @@ export class BooksDrizzleRepository implements BooksRepository {
       .set(BooksDrizzleMapper.fromDomain(book))
       .where(eq(books.id, book.id));
   }
+  async findByAuthor(authorId: string): Promise<Book[]> {
+    return (
+      await db.select().from(books).where(eq(books.authorId, authorId))
+    ).map((book) => BooksDrizzleMapper.toDomain(book));
+  }
 }

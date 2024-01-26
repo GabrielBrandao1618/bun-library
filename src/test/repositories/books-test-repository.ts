@@ -17,4 +17,7 @@ export class BooksTestRepository implements BooksRepository {
   async findById(id: string): Promise<Book | null> {
     return this.books.find((book) => book.id === id) ?? null;
   }
+  async findByAuthor(authorId: string): Promise<Book[]> {
+    return this.books.filter((book) => book.authorId === authorId);
+  }
 }
