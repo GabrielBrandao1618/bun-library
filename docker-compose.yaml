@@ -2,8 +2,14 @@ services:
   database:
     image: bitnami/postgresql:16.1.0
     environment:
-      POSTGRES_USER: library
+      POSTGRESQL_USERNAME: library
       POSTGRES_PASSWORD: library
-      POSTGRES_DB: library
+      POSTGRESQL_DATABASE: library
     ports:
       - "5432:5432"
+
+    volumes:
+      - db-data:/bitnami/postgresql:rw
+
+volumes:
+  db-data:
