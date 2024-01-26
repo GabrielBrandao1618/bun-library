@@ -8,12 +8,15 @@ import { PhysicalBooksDrizzleRepository } from "../database/drizzle/repository/p
 import { CreateAuthor } from "../../app/services/create-author";
 import { CreateBook } from "../../app/services/create-book";
 import { CreatePhysicalBook } from "../../app/services/create-physical-book";
+import { AuthTokenWebStrategy } from "../strategy/auth-token-web-strategy";
+import { SignIn } from "../../app/services/sign-in";
 
+const passwordHashingStrategy = new PasswordHashingWebStrategy();
+const authTokenStrategy = new AuthTokenWebStrategy();
 const usersRepository = new UsersDrizzleRepository();
 const booksRepository = new BooksDrizzleRepository();
 const authorsRepository = new AuthorsDrizzleRepository();
 const physicalBooksRepository = new PhysicalBooksDrizzleRepository();
-const passwordHashingStrategy = new PasswordHashingWebStrategy();
 
 export const servicesPlugin = new Elysia({ name: "services-plugin" }).decorate({
   signUp: new SignUp(usersRepository, passwordHashingStrategy),
@@ -22,5 +25,10 @@ export const servicesPlugin = new Elysia({ name: "services-plugin" }).decorate({
   createPhysicalBook: new CreatePhysicalBook(
     physicalBooksRepository,
     booksRepository
+  ),
+  signIn: new SignIn(
+    usersRepository,
+    authTokenStrategy,
+    passwordHashingStrategy
   ),
 });
