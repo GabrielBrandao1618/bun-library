@@ -43,6 +43,7 @@ export const userRoutes = new Elysia()
             email: t.String(),
             password: t.String(),
           }),
+          response: t.String(),
         }
       )
   );

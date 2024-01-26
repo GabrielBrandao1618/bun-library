@@ -25,6 +25,12 @@ export const bookRoutes = new Elysia()
           authorId: t.String(),
           numPages: t.Number(),
         }),
+        response: t.Object({
+          id: t.String(),
+          authorId: t.String(),
+          numPages: t.Number(),
+          title: t.String(),
+        }),
       }
     )
   );

@@ -17,6 +17,10 @@ export const authorRoutes = new Elysia()
         body: t.Object({
           name: t.String(),
         }),
+        response: t.Object({
+          name: t.String(),
+          id: t.String(),
+        }),
       }
     )
   );
