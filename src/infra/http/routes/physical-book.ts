@@ -1,8 +1,11 @@
+import { bearer } from "@elysiajs/bearer";
+
 import Elysia, { t } from "elysia";
 import { servicesPlugin } from "../../elysia/services-plugin";
 
 export const physicalBookRoutes = new Elysia()
   .use(servicesPlugin)
+  .use(bearer())
   .group("/physical-book", (app) =>
     app
       .post(
@@ -21,12 +24,26 @@ export const physicalBookRoutes = new Elysia()
           }),
         }
       )
-      .put("/borrow", async ({}) => {}, {
-        beforeHandle: async ({ headers, request }) => {
-          const token = headers["auth-token"].split(" ")[1]; // Ignore the 'bearer' word in the token
+      .put(
+        "/borrow",
+        async ({ bearer, verifySignIn, borrowBook, body }) => {
+          const tokenPayload = await verifySignIn.execute(bearer!);
+          const result = await borrowBook.execute(
+            body.physicalBookId,
+            tokenPayload.id
+          );
+          return result;
         },
-        headers: t.Object({
-          "auth-token": t.String(),
-        }),
-      })
+        {
+          beforeHandle: async ({ bearer, set }) => {
+            if (!bearer) {
+              set.status = "Unauthorized";
+              return "Unauthorized";
+            }
+          },
+          body: t.Object({
+            physicalBookId: t.String(),
+          }),
+        }
+      )
   );
