@@ -10,6 +10,7 @@ import { CreateBook } from "../../app/services/create-book";
 import { CreatePhysicalBook } from "../../app/services/create-physical-book";
 import { AuthTokenWebStrategy } from "../strategy/auth-token-web-strategy";
 import { SignIn } from "../../app/services/sign-in";
+import { BorrowBook } from "../../app/services/borrow-book";
 
 const passwordHashingStrategy = new PasswordHashingWebStrategy();
 const authTokenStrategy = new AuthTokenWebStrategy();
@@ -31,4 +32,5 @@ export const servicesPlugin = new Elysia({ name: "services-plugin" }).decorate({
     authTokenStrategy,
     passwordHashingStrategy
   ),
+  borrowBook: new BorrowBook(physicalBooksRepository, usersRepository),
 });
