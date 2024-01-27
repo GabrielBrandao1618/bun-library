@@ -5,6 +5,14 @@ export const userRoutes = new Elysia()
   .use(servicesPlugin)
   .group("/user", (app) =>
     app
+      .get("/", async ({ listUsers }) => {
+        const users = await listUsers.execute();
+        return users.map((user) => ({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        }));
+      })
       .post(
         "/sign-up",
         async ({ body, signUp }) => {
