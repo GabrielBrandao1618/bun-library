@@ -13,6 +13,9 @@ import { SignIn } from "../../app/services/sign-in";
 import { BorrowBook } from "../../app/services/borrow-book";
 import { VerifySignIn } from "../../app/services/verify-sign-in";
 import { ListUsers } from "../../app/services/list-users";
+import { ListPhysicalBooks } from "../../app/services/list-physical-books";
+import { ListBooks } from "../../app/services/list-books";
+import { ListAuthors } from "../../app/services/list-authors";
 
 const passwordHashingStrategy = new PasswordHashingWebStrategy();
 const authTokenStrategy = new AuthTokenWebStrategy();
@@ -37,4 +40,7 @@ export const servicesPlugin = new Elysia({ name: "services-plugin" }).decorate({
   borrowBook: new BorrowBook(physicalBooksRepository, usersRepository),
   verifySignIn: new VerifySignIn(authTokenStrategy),
   listUsers: new ListUsers(usersRepository),
+  listPhysicalBooks: new ListPhysicalBooks(physicalBooksRepository),
+  listBooks: new ListBooks(booksRepository),
+  listAuthors: new ListAuthors(authorsRepository),
 });

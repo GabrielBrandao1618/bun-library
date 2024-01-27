@@ -5,6 +5,14 @@ export const physicalBookRoutes = new Elysia()
   .use(servicesPlugin)
   .group("/physical-book", (app) =>
     app
+      .get("/", async ({ listPhysicalBooks }) => {
+        const books = await listPhysicalBooks.execute();
+        return books.map((book) => ({
+          id: book.id,
+          bookId: book.id,
+          isAvailable: book.isAvailable(),
+        }));
+      })
       .post(
         "/create",
         async ({ body, createPhysicalBook }) => {
