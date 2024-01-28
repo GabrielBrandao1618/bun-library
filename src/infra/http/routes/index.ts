@@ -5,10 +5,9 @@ import { authorRoutes } from "./author";
 import { physicalBookRoutes } from "./physical-book";
 import { AppDependencies } from "../app";
 
-export const routes = (deps: AppDependencies) => {
-  return new Elysia()
+export const routes = (deps: AppDependencies) =>
+  new Elysia()
     .use(userRoutes(deps))
     .use(bookRoutes(deps))
     .use(authorRoutes(deps))
     .use(physicalBookRoutes(deps));
-};

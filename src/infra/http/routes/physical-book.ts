@@ -2,8 +2,8 @@ import Elysia, { t } from "elysia";
 import { servicesPlugin } from "../../elysia/services-plugin";
 import { injectJwtPayloadPlugin } from "../../elysia/inject-jwt-payload-plugin";
 import { AppDependencies } from "../app";
-export const physicalBookRoutes = (deps: AppDependencies) => {
-  return new Elysia().use(servicesPlugin(deps)).group("/physical-book", (app) =>
+export const physicalBookRoutes = (deps: AppDependencies) =>
+  new Elysia().use(servicesPlugin(deps)).group("/physical-book", (app) =>
     app
       .get("/", async ({ listPhysicalBooks }) => {
         const books = await listPhysicalBooks.execute();
@@ -73,4 +73,3 @@ export const physicalBookRoutes = (deps: AppDependencies) => {
           )
       )
   );
-};

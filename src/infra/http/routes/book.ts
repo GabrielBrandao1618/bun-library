@@ -2,8 +2,8 @@ import Elysia, { t } from "elysia";
 import { servicesPlugin } from "../../elysia/services-plugin";
 import { AppDependencies } from "../app";
 
-export const bookRoutes = (deps: AppDependencies) => {
-  return new Elysia().use(servicesPlugin(deps)).group("/book", (app) =>
+export const bookRoutes = (deps: AppDependencies) =>
+  new Elysia().use(servicesPlugin(deps)).group("/book", (app) =>
     app
       .get("/", async ({ listBooks }) => {
         const books = await listBooks.execute();
@@ -57,4 +57,3 @@ export const bookRoutes = (deps: AppDependencies) => {
         }
       )
   );
-};

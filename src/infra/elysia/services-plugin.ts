@@ -14,8 +14,8 @@ import { GetAuthorBooks } from "../../app/services/get-author-books";
 import { ReturnBook } from "../../app/services/return-book";
 import { AppDependencies } from "../http/app";
 
-export const servicesPlugin = (deps: AppDependencies) => {
-  return new Elysia({ name: "services-plugin", seed: deps }).decorate({
+export const servicesPlugin = (deps: AppDependencies) =>
+  new Elysia({ name: "services-plugin", seed: deps }).decorate({
     signUp: new SignUp(deps.usersRepository, deps.passwordHashingStrategy),
     createAuthor: new CreateAuthor(deps.authorsRepository),
     createBook: new CreateBook(deps.booksRepository, deps.authorsRepository),
@@ -43,4 +43,3 @@ export const servicesPlugin = (deps: AppDependencies) => {
       deps.usersRepository
     ),
   });
-};

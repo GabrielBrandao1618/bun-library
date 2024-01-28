@@ -4,7 +4,7 @@ import { servicesPlugin } from "./services-plugin";
 import { AppDependencies } from "../http/app";
 
 export const injectJwtPayloadPlugin = (deps: AppDependencies) =>
-  new Elysia()
+  new Elysia({ name: "inject-jwt-payload-plugin", seed: deps })
     .use(servicesPlugin(deps))
     .use(bearer())
     .derive(async ({ bearer, verifySignIn }) => {
