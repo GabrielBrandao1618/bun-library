@@ -17,6 +17,7 @@ import { ListPhysicalBooks } from "../../app/services/list-physical-books";
 import { ListBooks } from "../../app/services/list-books";
 import { ListAuthors } from "../../app/services/list-authors";
 import { GetAuthorBooks } from "../../app/services/get-author-books";
+import { ReturnBook } from "../../app/services/return-book";
 
 const passwordHashingStrategy = new PasswordHashingWebStrategy();
 const authTokenStrategy = new AuthTokenWebStrategy();
@@ -45,4 +46,5 @@ export const servicesPlugin = new Elysia({ name: "services-plugin" }).decorate({
   listBooks: new ListBooks(booksRepository),
   listAuthors: new ListAuthors(authorsRepository),
   getAuthorBooks: new GetAuthorBooks(booksRepository),
+  returnBook: new ReturnBook(physicalBooksRepository, usersRepository),
 });

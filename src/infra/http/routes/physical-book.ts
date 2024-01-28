@@ -31,24 +31,45 @@ export const physicalBookRoutes = new Elysia()
       )
 
       .guard({}, (app) =>
-        app.use(injectJwtPayloadPlugin).put(
-          "/borrow",
-          async ({ borrowBook, body, jwtPayload }) => {
-            const result = await borrowBook.execute(
-              body.physicalBookId,
-              jwtPayload!.id
-            );
-            return {
-              id: result.id,
-              bookId: result.bookId,
-              isAvailable: result.isAvailable(),
-            };
-          },
-          {
-            body: t.Object({
-              physicalBookId: t.String(),
-            }),
-          }
-        )
+        app
+          .use(injectJwtPayloadPlugin)
+          .put(
+            "/borrow",
+            async ({ borrowBook, body, jwtPayload }) => {
+              const result = await borrowBook.execute(
+                body.physicalBookId,
+                jwtPayload!.id
+              );
+              return {
+                id: result.id,
+                bookId: result.bookId,
+                isAvailable: result.isAvailable(),
+              };
+            },
+            {
+              body: t.Object({
+                physicalBookId: t.String(),
+              }),
+            }
+          )
+          .put(
+            "/return",
+            async ({ returnBook, jwtPayload, body }) => {
+              const result = await returnBook.execute(
+                jwtPayload!.id,
+                body.physicalBookId
+              );
+              return {
+                id: result.id,
+                bookId: result.bookId,
+                isAvailable: result.isAvailable(),
+              };
+            },
+            {
+              body: t.Object({
+                physicalBookId: t.String(),
+              }),
+            }
+          )
       )
   );
