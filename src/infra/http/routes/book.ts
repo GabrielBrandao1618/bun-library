@@ -14,6 +14,19 @@ export const bookRoutes = new Elysia()
           authorId: book.authorId,
         }));
       })
+      .get(
+        "/by-author",
+        async ({ query, getAuthorBooks }) => {
+          const books = await getAuthorBooks.execute(query.author);
+          return books.map((book) => ({
+            id: book.id,
+            title: book.title,
+            numPages: book.numPages,
+            authorId: book.authorId,
+          }));
+        },
+        { query: t.Object({ author: t.String() }) }
+      )
       .post(
         "/create",
         async ({ body, createBook }) => {
