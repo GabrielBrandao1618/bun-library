@@ -1,9 +1,9 @@
 import Elysia, { t } from "elysia";
 import { servicesPlugin } from "../../elysia/services-plugin";
+import { AppDependencies } from "../app";
 
-export const userRoutes = new Elysia()
-  .use(servicesPlugin)
-  .group("/user", (app) =>
+export const userRoutes = (deps: AppDependencies) => {
+  return new Elysia().use(servicesPlugin(deps)).group("/user", (app) =>
     app
       .get("/", async ({ listUsers }) => {
         const users = await listUsers.execute();
@@ -55,3 +55,4 @@ export const userRoutes = new Elysia()
         }
       )
   );
+};
