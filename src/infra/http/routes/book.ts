@@ -2,18 +2,31 @@ import Elysia, { t } from "elysia";
 import { servicesPlugin } from "../../elysia/services-plugin";
 import { AppDependencies } from "../app";
 
+const bookResponseSchema = t.Object({
+  id: t.String(),
+  authorId: t.String(),
+  numPages: t.Number(),
+  title: t.String(),
+});
+
+const tags = ["Book"];
+
 export const bookRoutes = (deps: AppDependencies) =>
   new Elysia().use(servicesPlugin(deps)).group("/book", (app) =>
     app
-      .get("/", async ({ listBooks }) => {
-        const books = await listBooks.execute();
-        return books.map((book) => ({
-          id: book.id,
-          title: book.title,
-          numPages: book.numPages,
-          authorId: book.authorId,
-        }));
-      })
+      .get(
+        "/",
+        async ({ listBooks }) => {
+          const books = await listBooks.execute();
+          return books.map((book) => ({
+            id: book.id,
+            title: book.title,
+            numPages: book.numPages,
+            authorId: book.authorId,
+          }));
+        },
+        { response: t.Array(bookResponseSchema), detail: { tags } }
+      )
       .get(
         "/by-author",
         async ({ query, getAuthorBooks }) => {
@@ -25,7 +38,11 @@ export const bookRoutes = (deps: AppDependencies) =>
             authorId: book.authorId,
           }));
         },
-        { query: t.Object({ author: t.String() }) }
+        {
+          query: t.Object({ author: t.String() }),
+          response: t.Array(bookResponseSchema),
+          detail: { tags },
+        }
       )
       .post(
         "/create",
@@ -48,12 +65,8 @@ export const bookRoutes = (deps: AppDependencies) =>
             authorId: t.String(),
             numPages: t.Number(),
           }),
-          response: t.Object({
-            id: t.String(),
-            authorId: t.String(),
-            numPages: t.Number(),
-            title: t.String(),
-          }),
+          response: bookResponseSchema,
+          detail: { tags },
         }
       )
   );

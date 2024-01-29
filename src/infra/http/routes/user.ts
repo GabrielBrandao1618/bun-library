@@ -2,17 +2,32 @@ import Elysia, { t } from "elysia";
 import { servicesPlugin } from "../../elysia/services-plugin";
 import { AppDependencies } from "../app";
 
+const userResponseSchema = t.Object({
+  id: t.String(),
+  name: t.String(),
+  email: t.String(),
+});
+
+const tags = ["User"];
+
 export const userRoutes = (deps: AppDependencies) =>
   new Elysia().use(servicesPlugin(deps)).group("/user", (app) =>
     app
-      .get("/", async ({ listUsers }) => {
-        const users = await listUsers.execute();
-        return users.map((user) => ({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-        }));
-      })
+      .get(
+        "/",
+        async ({ listUsers }) => {
+          const users = await listUsers.execute();
+          return users.map((user) => ({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          }));
+        },
+        {
+          detail: { tags },
+          response: t.Array(userResponseSchema),
+        }
+      )
       .post(
         "/sign-up",
         async ({ body, signUp }) => {
@@ -33,11 +48,8 @@ export const userRoutes = (deps: AppDependencies) =>
             email: t.String(),
             password: t.String(),
           }),
-          response: t.Object({
-            id: t.String(),
-            name: t.String(),
-            email: t.String(),
-          }),
+          response: userResponseSchema,
+          detail: { tags },
         }
       )
       .post(
@@ -52,6 +64,9 @@ export const userRoutes = (deps: AppDependencies) =>
             password: t.String(),
           }),
           response: t.String(),
+          detail: {
+            tags,
+          },
         }
       )
   );
