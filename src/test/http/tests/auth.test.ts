@@ -47,5 +47,25 @@ describe("Authentication/Authorization tests", async () => {
       })
     );
     expect(signInResponse.ok).toBeTrue();
+    const authToken = await signInResponse.text();
+
+    const borrowPhysicalBookResponse = await testApp.handle(
+      new Request({
+        url: "http://localhost/physical-book/borrow",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          physicalBookId: "aaaa",
+        }),
+      })
+    );
+    // Checks if user is authenticated. If it's not, the API will return whether 403 or 401 status code
+    expect(
+      borrowPhysicalBookResponse.status === 403 ||
+        borrowPhysicalBookResponse.status === 401
+    ).toBeFalse();
   });
 });
