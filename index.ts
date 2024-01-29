@@ -27,4 +27,4 @@ async function main() {
   console.log("🔥 App running at port 8080");
 }
 
-main();
+await main();

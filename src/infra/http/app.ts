@@ -1,5 +1,4 @@
 import { Elysia } from "elysia";
-import { swagger } from "@elysiajs/swagger";
 import { routes } from "./routes";
 import { AuthorsRepository } from "../../app/repository/authors-repository";
 import { BooksRepository } from "../../app/repository/books-repository";
@@ -18,5 +17,5 @@ export interface AppDependencies {
 }
 
 export const app = (deps: AppDependencies) => {
-  return new Elysia().use(swagger()).use(routes(deps));
+  return new Elysia().use(routes(deps));
 };
