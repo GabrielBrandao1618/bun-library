@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "bun index.ts",
+    "swagger": "bun doc/swagger.ts",
     "orm:generate": "drizzle-kit generate:pg"
   },
   "devDependencies": {
