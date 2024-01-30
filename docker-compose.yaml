@@ -7,9 +7,12 @@ services:
       POSTGRESQL_DATABASE: library
     ports:
       - "5432:5432"
-
     volumes:
       - db-data:/bitnami/postgresql:rw
+  cache:
+    image: redis/redis-stack
+    ports:
+      - "${REDIS_PORT}:6379"
 
 volumes:
   db-data:
