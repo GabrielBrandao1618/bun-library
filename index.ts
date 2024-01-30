@@ -4,6 +4,7 @@ import { BooksDrizzleRepository } from "./src/infra/database/drizzle/repository/
 import { PhysicalBooksDrizzleRepository } from "./src/infra/database/drizzle/repository/physical-books-drizzle-repository";
 import { UsersDrizzleRepository } from "./src/infra/database/drizzle/repository/users-drizzle-repository";
 import { app } from "./src/infra/http/app";
+import { AuthorsRedisRepository } from "./src/infra/redis/proxy/authors-redis-repository";
 import { UsersRedisRepository } from "./src/infra/redis/proxy/users-redis-repository";
 import { AuthTokenWebStrategy } from "./src/infra/strategy/auth-token-web-strategy";
 import { PasswordHashingWebStrategy } from "./src/infra/strategy/password-hashing-web-strategy";
@@ -12,7 +13,9 @@ const passwordHashingStrategy = new PasswordHashingWebStrategy();
 const authTokenStrategy = new AuthTokenWebStrategy();
 const usersRepository = new UsersRedisRepository(new UsersDrizzleRepository());
 const booksRepository = new BooksDrizzleRepository();
-const authorsRepository = new AuthorsDrizzleRepository();
+const authorsRepository = new AuthorsRedisRepository(
+  new AuthorsDrizzleRepository()
+);
 const physicalBooksRepository = new PhysicalBooksDrizzleRepository();
 
 async function main() {
