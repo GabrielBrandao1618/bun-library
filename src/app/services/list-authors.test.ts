@@ -13,8 +13,11 @@ describe("List authors tests", () => {
     ]);
     const listAuthors = new ListAuthors(repository);
 
-    const result = await listAuthors.execute();
+    const result = await listAuthors.execute(0, 3);
 
     expect(result).toHaveLength(3);
+
+    const limitedResults = await listAuthors.execute(1, 2);
+    expect(limitedResults).toHaveLength(2);
   });
 });
