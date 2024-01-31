@@ -14,8 +14,11 @@ export const authorRoutes = (deps: AppDependencies) =>
     app
       .get(
         "/",
-        async ({ listAuthors }) => {
-          const authors = await listAuthors.execute();
+        async ({ listAuthors, query }) => {
+          const authors = await listAuthors.execute(
+            Number(query.offset),
+            Number(query.limit)
+          );
 
           return authors.map((author) => ({
             id: author.id,
@@ -24,6 +27,10 @@ export const authorRoutes = (deps: AppDependencies) =>
         },
         {
           response: t.Array(authorResponseSchema),
+          query: t.Object({
+            offset: t.String(),
+            limit: t.String(),
+          }),
           detail: { tags },
         }
       )

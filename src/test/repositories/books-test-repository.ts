@@ -6,8 +6,8 @@ export class BooksTestRepository implements BooksRepository {
   async create(book: Book): Promise<void> {
     this.books.push(book);
   }
-  async findMany(): Promise<Book[]> {
-    return this.books;
+  async findMany(offset: number, limit: number): Promise<Book[]> {
+    return this.books.slice(offset, offset + limit);
   }
   async save(book: Book): Promise<void> {
     const targetIndex = this.books.findIndex((item) => item.id === book.id);

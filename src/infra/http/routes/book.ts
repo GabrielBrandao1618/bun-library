@@ -16,8 +16,11 @@ export const bookRoutes = (deps: AppDependencies) =>
     app
       .get(
         "/",
-        async ({ listBooks }) => {
-          const books = await listBooks.execute();
+        async ({ listBooks, query }) => {
+          const books = await listBooks.execute(
+            Number(query.offset),
+            Number(query.limit)
+          );
           return books.map((book) => ({
             id: book.id,
             title: book.title,
@@ -25,7 +28,14 @@ export const bookRoutes = (deps: AppDependencies) =>
             authorId: book.authorId,
           }));
         },
-        { response: t.Array(bookResponseSchema), detail: { tags } }
+        {
+          response: t.Array(bookResponseSchema),
+          detail: { tags },
+          query: t.Object({
+            offset: t.String(),
+            limit: t.String(),
+          }),
+        }
       )
       .get(
         "/by-author",

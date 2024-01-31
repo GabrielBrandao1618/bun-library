@@ -12,6 +12,6 @@ it("Should list all books", async () => {
     booksRepository.create(new Book("cccc", "A book 3", "bbbb", 50)),
   ]);
 
-  const books = await listBooks.execute();
+  const books = await listBooks.execute(0, 3);
   expect(books).toHaveLength(3);
 });

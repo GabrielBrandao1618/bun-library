@@ -9,9 +9,9 @@ export class BooksDrizzleRepository implements BooksRepository {
   async create(book: Book): Promise<void> {
     await db.insert(books).values(BooksDrizzleMapper.fromDomain(book));
   }
-  async findMany(): Promise<Book[]> {
-    return (await db.select().from(books)).map((book) =>
-      BooksDrizzleMapper.toDomain(book)
+  async findMany(offset: number, limit: number): Promise<Book[]> {
+    return (await db.select().from(books).offset(offset).limit(limit)).map(
+      (book) => BooksDrizzleMapper.toDomain(book)
     );
   }
   async findById(id: string): Promise<Book | null> {
