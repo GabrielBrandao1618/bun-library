@@ -4,7 +4,7 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 
 import * as schema from "./schema";
 
-const dbUrl = process.env.DATABASE_URL ?? "";
+const dbUrl = process.env.DATABASE_URL!;
 export async function setupDatabase() {
   const migrationClient = postgres(dbUrl, { max: 1 });
   await migrate(drizzle(migrationClient), { migrationsFolder: "./drizzle" });

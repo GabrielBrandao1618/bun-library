@@ -3,7 +3,7 @@ import { sign, verify } from "jsonwebtoken";
 import { AuthTokenStrategy } from "../../app/strategy/auth-token-strategy";
 import { AuthTokenPayload } from "../../app/types/auth-token-payload";
 
-const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY ?? "";
+const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY!;
 
 export class AuthTokenWebStrategy implements AuthTokenStrategy {
   async sign(payload: AuthTokenPayload): Promise<string> {
