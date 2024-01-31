@@ -4,7 +4,7 @@ export class ListPhysicalBooks {
   constructor(
     private readonly physicalBooksRepository: PhysicalBooksRepository
   ) {}
-  async execute() {
-    return await this.physicalBooksRepository.findMany();
+  async execute(offset: number, limit: number) {
+    return await this.physicalBooksRepository.findMany(offset, limit);
   }
 }

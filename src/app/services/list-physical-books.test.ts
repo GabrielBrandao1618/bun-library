@@ -13,6 +13,6 @@ it("Should list all physical books", async () => {
     physicalBooksRepository.create(new PhysicalBook("cccc", "aaaa")),
   ]);
 
-  const result = await listPhysicalBooks.execute();
+  const result = await listPhysicalBooks.execute(0, 3);
   expect(result).toHaveLength(3);
 });

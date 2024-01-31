@@ -12,8 +12,8 @@ export class UsersTestRepository implements UsersRepository {
   async create(user: User): Promise<void> {
     this.users.push(user);
   }
-  async findMany(): Promise<User[]> {
-    return this.users;
+  async findMany(offset: number, limit: number): Promise<User[]> {
+    return this.users.slice(offset, offset + limit);
   }
   async save(user: User): Promise<void> {
     const targetIndex = this.users.findIndex((item) => item.id === user.id);

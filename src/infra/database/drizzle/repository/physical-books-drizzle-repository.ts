@@ -11,10 +11,10 @@ export class PhysicalBooksDrizzleRepository implements PhysicalBooksRepository {
       .insert(physicalBooks)
       .values(PhysicalBooksDrizzleMapper.fromDomain(physicalBook));
   }
-  async findMany(): Promise<PhysicalBook[]> {
-    return (await db.select().from(physicalBooks)).map((book) =>
-      PhysicalBooksDrizzleMapper.toDomain(book)
-    );
+  async findMany(offset: number, limit: number): Promise<PhysicalBook[]> {
+    return (
+      await db.select().from(physicalBooks).offset(offset).limit(limit)
+    ).map((book) => PhysicalBooksDrizzleMapper.toDomain(book));
   }
   async save(physicalBook: PhysicalBook): Promise<void> {
     await db

@@ -15,8 +15,11 @@ export const userRoutes = (deps: AppDependencies) =>
     app
       .get(
         "/",
-        async ({ listUsers }) => {
-          const users = await listUsers.execute();
+        async ({ listUsers, query }) => {
+          const users = await listUsers.execute(
+            Number(query.offset),
+            Number(query.limit)
+          );
           return users.map((user) => ({
             id: user.id,
             name: user.name,
@@ -24,8 +27,12 @@ export const userRoutes = (deps: AppDependencies) =>
           }));
         },
         {
-          detail: { tags },
           response: t.Array(userResponseSchema),
+          query: t.Object({
+            offset: t.String(),
+            limit: t.String(),
+          }),
+          detail: { tags },
         }
       )
       .post(

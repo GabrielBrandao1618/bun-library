@@ -16,8 +16,11 @@ export const physicalBookRoutes = (deps: AppDependencies) =>
     app
       .get(
         "/",
-        async ({ listPhysicalBooks }) => {
-          const books = await listPhysicalBooks.execute();
+        async ({ listPhysicalBooks, query }) => {
+          const books = await listPhysicalBooks.execute(
+            Number(query.offset),
+            Number(query.limit)
+          );
           return books.map((book) => ({
             id: book.id,
             bookId: book.id,
@@ -26,6 +29,10 @@ export const physicalBookRoutes = (deps: AppDependencies) =>
         },
         {
           response: t.Array(physicalBookResponseSchema),
+          query: t.Object({
+            offset: t.String(),
+            limit: t.String(),
+          }),
           detail: {
             tags,
           },

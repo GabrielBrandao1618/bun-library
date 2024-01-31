@@ -19,6 +19,6 @@ it("Should list all users", async () => {
     ),
   ]);
 
-  const result = await listUsers.execute();
+  const result = await listUsers.execute(0, 3);
   expect(result).toHaveLength(3);
 });
