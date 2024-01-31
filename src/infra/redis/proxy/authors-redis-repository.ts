@@ -12,8 +12,8 @@ export class AuthorsRedisRepository implements AuthorsRepository {
   async create(author: Author): Promise<void> {
     return await this.authorsRepository.create(author);
   }
-  async findAll(): Promise<Author[]> {
-    return await this.authorsRepository.findAll();
+  async findMany(): Promise<Author[]> {
+    return await this.authorsRepository.findMany();
   }
   async findById(authorId: string): Promise<Author | null> {
     const redisKey = `authorById:${authorId}`;

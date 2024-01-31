@@ -4,6 +4,6 @@ export class ListAuthors {
   constructor(private readonly authorsRepository: AuthorsRepository) {}
 
   async execute() {
-    return await this.authorsRepository.findAll();
+    return await this.authorsRepository.findMany();
   }
 }

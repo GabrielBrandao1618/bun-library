@@ -5,6 +5,6 @@ export class ListPhysicalBooks {
     private readonly physicalBooksRepository: PhysicalBooksRepository
   ) {}
   async execute() {
-    return await this.physicalBooksRepository.findAll();
+    return await this.physicalBooksRepository.findMany();
   }
 }

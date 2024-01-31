@@ -12,7 +12,7 @@ export class UsersTestRepository implements UsersRepository {
   async create(user: User): Promise<void> {
     this.users.push(user);
   }
-  async findAll(): Promise<User[]> {
+  async findMany(): Promise<User[]> {
     return this.users;
   }
   async save(user: User): Promise<void> {

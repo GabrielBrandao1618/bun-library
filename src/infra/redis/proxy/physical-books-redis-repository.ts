@@ -15,8 +15,8 @@ export class PhysicalBooksRedisRepository implements PhysicalBooksRepository {
   async create(physicalBook: PhysicalBook): Promise<void> {
     return await this.physicalBooksRepository.create(physicalBook);
   }
-  async findAll(): Promise<PhysicalBook[]> {
-    return await this.physicalBooksRepository.findAll();
+  async findMany(): Promise<PhysicalBook[]> {
+    return await this.physicalBooksRepository.findMany();
   }
   async save(physicalBook: PhysicalBook): Promise<void> {
     return await this.physicalBooksRepository.save(physicalBook);

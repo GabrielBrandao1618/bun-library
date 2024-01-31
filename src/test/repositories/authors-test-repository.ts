@@ -6,7 +6,7 @@ export class AuthorsTestRepository implements AuthorsRepository {
   async create(author: Author): Promise<void> {
     this.authors.push(author);
   }
-  async findAll(): Promise<Author[]> {
+  async findMany(): Promise<Author[]> {
     return this.authors;
   }
   async findById(authorId: string): Promise<Author | null> {

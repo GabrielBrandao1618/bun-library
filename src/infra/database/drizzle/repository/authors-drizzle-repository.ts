@@ -9,7 +9,7 @@ export class AuthorsDrizzleRepository implements AuthorsRepository {
   async create(author: Author): Promise<void> {
     await db.insert(authors).values(AuthorsDrizzleMapper.fromDomain(author));
   }
-  async findAll(): Promise<Author[]> {
+  async findMany(): Promise<Author[]> {
     return (await db.select().from(authors)).map((author) =>
       AuthorsDrizzleMapper.toDomain(author)
     );

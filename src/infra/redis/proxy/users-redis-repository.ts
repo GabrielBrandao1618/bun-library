@@ -14,8 +14,8 @@ export class UsersRedisRepository implements UsersRepository {
   async create(user: User): Promise<void> {
     return await this.usersRepository.create(user);
   }
-  async findAll(): Promise<User[]> {
-    return await this.usersRepository.findAll();
+  async findMany(): Promise<User[]> {
+    return await this.usersRepository.findMany();
   }
   async findByEmail(email: string): Promise<User | null> {
     const redisKey = `userByEmail:${email}`;

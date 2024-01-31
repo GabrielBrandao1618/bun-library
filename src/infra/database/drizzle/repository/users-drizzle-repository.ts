@@ -16,7 +16,7 @@ export class UsersDrizzleRepository implements UsersRepository {
       passwordHash: user.passwordHash,
     });
   }
-  async findAll(): Promise<User[]> {
+  async findMany(): Promise<User[]> {
     return (await db.select().from(users)).map((user) =>
       UsersDrizzleMapper.toDomain(user)
     );

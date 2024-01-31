@@ -9,7 +9,7 @@ export class BooksDrizzleRepository implements BooksRepository {
   async create(book: Book): Promise<void> {
     await db.insert(books).values(BooksDrizzleMapper.fromDomain(book));
   }
-  async findAll(): Promise<Book[]> {
+  async findMany(): Promise<Book[]> {
     return (await db.select().from(books)).map((book) =>
       BooksDrizzleMapper.toDomain(book)
     );

@@ -6,7 +6,7 @@ export class PhysicalBooksTestRepository implements PhysicalBooksRepository {
   async create(physicalBook: PhysicalBook): Promise<void> {
     this.books.push(physicalBook);
   }
-  async findAll(): Promise<PhysicalBook[]> {
+  async findMany(): Promise<PhysicalBook[]> {
     return this.books;
   }
   async save(physicalBook: PhysicalBook): Promise<void> {

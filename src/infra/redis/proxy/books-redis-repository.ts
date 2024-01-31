@@ -14,8 +14,8 @@ export class BooksRedisRepository implements BooksRepository {
   async create(book: Book): Promise<void> {
     return await this.booksRepository.create(book);
   }
-  async findAll(): Promise<Book[]> {
-    return await this.booksRepository.findAll();
+  async findMany(): Promise<Book[]> {
+    return await this.booksRepository.findMany();
   }
   async save(book: Book): Promise<void> {
     return await this.booksRepository.save(book);

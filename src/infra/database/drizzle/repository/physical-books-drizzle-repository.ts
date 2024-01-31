@@ -11,7 +11,7 @@ export class PhysicalBooksDrizzleRepository implements PhysicalBooksRepository {
       .insert(physicalBooks)
       .values(PhysicalBooksDrizzleMapper.fromDomain(physicalBook));
   }
-  async findAll(): Promise<PhysicalBook[]> {
+  async findMany(): Promise<PhysicalBook[]> {
     return (await db.select().from(physicalBooks)).map((book) =>
       PhysicalBooksDrizzleMapper.toDomain(book)
     );

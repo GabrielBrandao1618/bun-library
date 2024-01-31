@@ -6,7 +6,7 @@ export class BooksTestRepository implements BooksRepository {
   async create(book: Book): Promise<void> {
     this.books.push(book);
   }
-  async findAll(): Promise<Book[]> {
+  async findMany(): Promise<Book[]> {
     return this.books;
   }
   async save(book: Book): Promise<void> {
